@@ -15,10 +15,10 @@ CURRENTS = {
 
 #Declaring other vars and arrays
 TICKS_PER_SECOND = 32768
-EnergyTable = []  # Energy:cpu,lpm,rx,tx,idle
-TmpTable = []  
+EnergyTable      = []  # Energy:cpu,lpm,rx,tx,idle
+TmpTable         = []  
 AVG=TOT=Cpu=Lpm=Tx=Rx=TOTtx=AVGtx=TOTtx=TOTrx=0
-tmp=[]
+tmp              =[]
 
 #Reading the log file and justifying it in needed format.
 with open('COOJA.testlog', 'rb') as f: #posible change if running in windows from rb to r.
@@ -30,10 +30,10 @@ with open('COOJA.testlog', 'rb') as f: #posible change if running in windows fro
 
 for row in tmp:				
         if row[1] == 'ID:1':	#Checking the node's identidy and start reading.
-		        Cpu=Cpu+int(row[13])            
-		        Lpm=Lpm+int(row[14])
-	         	Tx=Tx+int(row[15]) 
-	         	Rx=Rx+int(row[16])
+	        Cpu=Cpu+int(row[13])            
+	        Lpm=Lpm+int(row[14])
+         	Tx=Tx+int(row[15]) 
+         	Rx=Rx+int(row[16])
          
 TmpTable.insert(0, Cpu)
 TmpTable.insert(1, Lpm)
@@ -41,13 +41,13 @@ TmpTable.insert(2, Tx)
 TmpTable.insert(3, Rx)
 
 for i in range(0,4):
-    EnergyTable.append(float(TmpTable[i])/TICKS_PER_SECOND)	#From ticks to seconds conversion       	     	                         	
+        EnergyTable.append(float(TmpTable[i])/TICKS_PER_SECOND)	#From ticks to seconds conversion       	     	                         	
 
 #Calculating the Energy of each state(Cpu,lpm,tx,rx,idle=0)
-EnergyTable[0]= EnergyTable[0]* CURRENTS["power_cpu_mA"]*CURRENTS["voltage"]
-EnergyTable[1]= EnergyTable[1]* CURRENTS["power_lpm_mA"]*CURRENTS["voltage"]
-EnergyTable[2]= EnergyTable[2]* CURRENTS["power_tx_mA"]*CURRENTS["voltage"]
-EnergyTable[3]= EnergyTable[3]* CURRENTS["power_rx_mA"]*CURRENTS["voltage"]
+EnergyTable[0] = EnergyTable[0]* CURRENTS["power_cpu_mA"]*CURRENTS["voltage"]
+EnergyTable[1] = EnergyTable[1]* CURRENTS["power_lpm_mA"]*CURRENTS["voltage"]
+EnergyTable[2] = EnergyTable[2]* CURRENTS["power_tx_mA"] *CURRENTS["voltage"]
+EnergyTable[3] = EnergyTable[3]* CURRENTS["power_rx_mA"] *CURRENTS["voltage"]
 
 for i in range(0,4): #Adding them all together
     AVG = EnergyTable[i] + AVG 
@@ -57,6 +57,6 @@ print "------------------------------------------------"
 
 AVG=AVG/3480 #Calculating average power for n minutes of simulation here for 1 hour simulation(60-minutes)
 
-print ("The total energy consumption of the node is ", TOT ,"mJ")
-print("The Average power consumption of the node is ","%.6f" % AVG,"mW");       
+print ("The total energy consumption of the node  is ", TOT ,"mJ")
+print(" The Average power consumption of the node is ","%.6f" % AVG,"mW");       
 ##########  
