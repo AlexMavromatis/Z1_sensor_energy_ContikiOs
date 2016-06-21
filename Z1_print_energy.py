@@ -23,7 +23,7 @@ tmp=[]
 #Reading the log file and justifying it in needed format.
 with open('COOJA.testlog', 'rb') as f: #posible change if running in windows from rb to r.
     for line in f:
-    	if line.find(" P ") > 0:       #Cooja powertrace output "P"
+    	if line.find(" PowerF ") > 0:       #Cooja powertrace output "PowerF" in this example generaly is "P"
 		tmp1 = line.split(" ")
 		tmp1 = filter(None,tmp1)
 		tmp.append(tmp1)
